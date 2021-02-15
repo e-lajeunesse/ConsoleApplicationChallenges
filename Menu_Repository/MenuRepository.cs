@@ -8,7 +8,7 @@ namespace Menu_Repository
 {
     public class MenuRepository
     {
-        public List<MenuItem> MenuList { get; } = new List<MenuItem>();
+        private readonly List<MenuItem> MenuList = new List<MenuItem>();
         public MenuRepository() { }
 
         //Method to add new menu item to menu

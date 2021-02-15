@@ -14,9 +14,7 @@ namespace MenuConsole
 
         public void RunUI()
         {
-
             bool keepRunning = true;
-
             while (keepRunning)
             {
                 Console.Clear();
@@ -26,8 +24,10 @@ namespace MenuConsole
                     $"2. Add item to Menu\n" +
                     $"3. Remove item from Menu\n" +
                     $"4. Edit item on Menu\n" +
-                    $"0. Exit"
+                    $"0. Exit\n"
                     );
+
+                Console.Write("Selection: ");
 
                 switch (Console.ReadLine())
                 {
@@ -98,16 +98,16 @@ namespace MenuConsole
             int counter = 1;
             int selectedNumber = -1;
 
-            while (selectedNumber < 1 || selectedNumber > _repo.MenuList.Count)
+            while (selectedNumber < 1 || selectedNumber > _repo.GetMenuItems().Count)
             {
                 Console.WriteLine($"Enter number to edit indicated item: ");
-                foreach (MenuItem item in _repo.MenuList)
+                foreach (MenuItem item in _repo.GetMenuItems())
                 {
                     Console.WriteLine($"{counter}. {item.Name}");
                     counter++;
                 }
                 int selection = int.Parse(Console.ReadLine());
-                if (selection >= 1 && selection <= _repo.MenuList.Count)
+                if (selection >= 1 && selection <= _repo.GetMenuItems().Count)
                 {
                     selectedNumber = selection;
                 }
@@ -118,7 +118,7 @@ namespace MenuConsole
                 }
             }
 
-            MenuItem itemToEdit = _repo.MenuList[selectedNumber - 1];
+            MenuItem itemToEdit = _repo.GetMenuItems()[selectedNumber - 1];
             Console.Clear();
 
             Console.WriteLine($"What do you wish to edit: \n" +
@@ -169,8 +169,8 @@ namespace MenuConsole
             int counter = 1;
 
             while (moreIngredients)
-            {
-                Console.WriteLine($"Enter ingredient {counter} and press 'enter'. " +
+            {                
+                Console.WriteLine($"\nEnter ingredient {counter} and press 'enter'. " +
                     $"If you are finished adding ingredients type 'esc' to leave.");
                 string entry = Console.ReadLine();
                 if (entry != "esc")

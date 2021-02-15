@@ -32,10 +32,10 @@ namespace MenuTests
         [TestMethod]
         public void AddMenuItemTest()
         {
-            int currentMenuItems = _repo.MenuList.Count;
+            int currentMenuItems = _repo.GetMenuItems().Count;
             MenuItem burger = new MenuItem();
             _repo.AddMenuItem(burger);
-            Assert.IsTrue(_repo.MenuList.Count > currentMenuItems);
+            Assert.IsTrue(_repo.GetMenuItems().Count > currentMenuItems);
         }
 
         [TestMethod]
@@ -45,11 +45,6 @@ namespace MenuTests
             Assert.IsTrue(wasDeleted);
         }
 
-        [TestMethod]
-        public void GetMenuItemListTest_ShouldGetMenuList()
-        {
-            Assert.AreEqual(_repo.MenuList, _repo.GetMenuItems());
-        }
 
         [TestMethod]
         public void DisplayMenuTest_ShouldSeeMenuInConsole()
