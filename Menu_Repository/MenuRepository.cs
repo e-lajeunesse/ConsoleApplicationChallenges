@@ -8,31 +8,33 @@ namespace Menu_Repository
 {
     public class MenuRepository
     {
-        private readonly List<MenuItem> MenuList = new List<MenuItem>();
+        private readonly List<MenuItem> _menuList = new List<MenuItem>();
         public MenuRepository() { }
 
         //Method to add new menu item to menu
-        public void AddMenuItem(MenuItem item)
+        public bool AddMenuItem(MenuItem item)
         {
-            MenuList.Add(item);
+            int startingCount = _menuList.Count;
+            _menuList.Add(item);
+            return _menuList.Count == startingCount + 1;
         }
 
         //Method to delete a menu item
         public bool DeleteMenuItem(MenuItem item)
         {
-            return MenuList.Remove(item);
+            return _menuList.Remove(item);
         }
 
         //Method to return list of all menu items
         public List<MenuItem> GetMenuItems()
         {
-            return MenuList;
+            return _menuList;
         }
 
         //Method to see all items in menu
         public void DisplayMenu()
         {
-            foreach (MenuItem item in MenuList)
+            foreach (MenuItem item in _menuList)
             {
                 Console.WriteLine($"#{item.MealNumber}: {item.Name}- {item.Description}");
                 Console.WriteLine($"Ingredients: {item.IngredientsString()}");
@@ -44,7 +46,7 @@ namespace Menu_Repository
         // Get menu item by name
         public MenuItem GetItemByName(string name)
         {
-            foreach (MenuItem item in MenuList)
+            foreach (MenuItem item in _menuList)
             {
                 if (item.Name.ToUpper() == name.ToUpper())
                 {

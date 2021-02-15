@@ -31,11 +31,9 @@ namespace MenuTests
 
         [TestMethod]
         public void AddMenuItemTest()
-        {
-            int currentMenuItems = _repo.GetMenuItems().Count;
-            MenuItem burger = new MenuItem();
-            _repo.AddMenuItem(burger);
-            Assert.IsTrue(_repo.GetMenuItems().Count > currentMenuItems);
+        {            
+            MenuItem burger = new MenuItem();            
+            Assert.IsTrue(_repo.AddMenuItem(burger));
         }
 
         [TestMethod]

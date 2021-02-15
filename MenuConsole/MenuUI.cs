@@ -10,7 +10,7 @@ namespace MenuConsole
     public class MenuUI
     {
         private MenuRepository _repo = new MenuRepository();
-        public MenuUI() { }
+        public MenuUI() {}
 
         public void RunUI()
         {
