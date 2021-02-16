@@ -55,8 +55,7 @@ namespace Badge_Repository
             {
                 Console.Write("Badge ID: ");
                 Console.WriteLine(key);
-                Console.Write("Door access: ");
-                
+                Console.Write("Door access: ");                
                 Console.WriteLine(ListOfDoorsString(key)+ "\n");
             }
             
