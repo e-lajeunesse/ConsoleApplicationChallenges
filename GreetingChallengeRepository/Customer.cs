@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GreetingChallengeRepository
 {
-    public enum CustomerType { Current, Past, Potential};
+    public enum CustomerType { Current=1, Past, Potential};
     public class Customer
     {
         public string FirstName { get; set; }

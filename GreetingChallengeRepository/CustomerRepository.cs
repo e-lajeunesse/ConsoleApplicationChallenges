@@ -46,12 +46,12 @@ namespace GreetingChallengeRepository
 
         public void DisplaySortedCustomerList()
         {
-            Console.WriteLine("First Name     Last Name      Type           Email\n");
+            Console.WriteLine("Last Name     First Name     ID      Type           Email");
+            Console.WriteLine("----------------------------------------------------------");
             foreach(Customer customer in CustomersInOrder)
             {
-                Console.WriteLine($"{customer.FirstName,-15}{customer.LastName,-15}{customer.Type,-15}{customer.Email}");
+                Console.WriteLine($"{customer.LastName,-15}{customer.FirstName,-15}{customer.ID,-7}{customer.Type,-15}{customer.Email}");
             }
         }
-
     }
 }
