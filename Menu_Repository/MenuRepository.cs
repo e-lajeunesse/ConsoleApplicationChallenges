@@ -10,8 +10,7 @@ namespace Menu_Repository
     {
         private readonly List<MenuItem> _menuList = new List<MenuItem>();
         public MenuRepository() { }
-
-        //Method to add new menu item to menu
+        
         public bool AddMenuItem(MenuItem item)
         {
             int startingCount = _menuList.Count;
@@ -19,19 +18,16 @@ namespace Menu_Repository
             return _menuList.Count == startingCount + 1;
         }
 
-        //Method to delete a menu item
         public bool DeleteMenuItem(MenuItem item)
         {
             return _menuList.Remove(item);
         }
 
-        //Method to return list of all menu items
         public List<MenuItem> GetMenuItems()
         {
             return _menuList;
         }
 
-        //Method to see all items in menu
         public void DisplayMenu()
         {
             foreach (MenuItem item in _menuList)
@@ -43,7 +39,6 @@ namespace Menu_Repository
             }
         }
 
-        // Get menu item by name
         public MenuItem GetItemByName(string name)
         {
             foreach (MenuItem item in _menuList)
@@ -51,8 +46,7 @@ namespace Menu_Repository
                 if (item.Name.ToUpper() == name.ToUpper())
                 {
                     return item;
-                }
-                Console.WriteLine("Unable to find menu item with that name.");
+                }                
             }
             return null;
         }

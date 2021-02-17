@@ -52,10 +52,8 @@ namespace GreetingChallengeConsole
             Console.Clear();
             Console.Write("Enter customer first name: ");
             customerToAdd.FirstName = Console.ReadLine();
-
             Console.Write("\nEnter customer last name: ");
             customerToAdd.LastName = Console.ReadLine();
-
             bool validID = false;
             while (!validID)
             {
@@ -67,7 +65,6 @@ namespace GreetingChallengeConsole
                     validID = true;
                 }
             }
-
             List<int> validTypeEntries = new List<int> { 1, 2, 3 };
             int typeEntry = -1;
             while (!validTypeEntries.Contains(typeEntry))
@@ -95,7 +92,6 @@ namespace GreetingChallengeConsole
             _repo.RemoveCustomer(customerToRemove);
             Console.WriteLine("\nCustomer successfully removed");
             GoBackToMain();
-
         }
         public void UpdateCustomer()
         {

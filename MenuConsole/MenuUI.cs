@@ -11,7 +11,6 @@ namespace MenuConsole
     {
         private MenuRepository _repo = new MenuRepository();
         public MenuUI() {}
-
         public void RunUI()
         {
             bool keepRunning = true;
@@ -26,27 +25,21 @@ namespace MenuConsole
                     $"4. Edit item on Menu\n" +
                     $"0. Exit\n"
                     );
-
                 Console.Write("Selection: ");
-
                 switch (Console.ReadLine())
                 {
-                    case "1":
-                        //Display Menu
+                    case "1":                        
                         Console.Clear();
                         _repo.DisplayMenu();
-                        Console.ReadKey();
+                        GoBackToMain();
                         break;
-                    case "2":
-                        //Add item
+                    case "2":                        
                         AddItem();
                         break;
-                    case "3":
-                        // Delete item
+                    case "3":                        
                         DeleteItem();
                         break;
-                    case "4":
-                        // Edit item
+                    case "4":                        
                         EditItem();
                         break;
                     case "0":
@@ -58,26 +51,34 @@ namespace MenuConsole
                 }
             }
         }
-
-
         public void AddItem()
         {
             Console.Clear();
-
-            Console.WriteLine("Enter menu item name: ");
+            Console.Write("Enter menu item name: ");
             string itemName = Console.ReadLine();
-
-            Console.WriteLine("Enter menu item description: ");
+            Console.Write("\nEnter menu item description: ");
             string description = Console.ReadLine();
-
-            List<string> ingredients = GetIngredientList();
-
-            Console.WriteLine("Enter item price: ");
-            decimal price = decimal.Parse(Console.ReadLine());
-
-            Console.WriteLine("Enter menu item number: ");
-            int itemNumber = int.Parse(Console.ReadLine());
-
+            List<string> ingredients = GetIngredientList();            
+            bool validPrice = false;
+            decimal price = -1;
+            while(!validPrice)
+            {
+                Console.Write("\nEnter item price: ");
+                if (decimal.TryParse(Console.ReadLine(),out price))
+                {
+                    validPrice = true;
+                }
+            }            
+            bool validMenuNumber = false;
+            int itemNumber = -1;
+            while(!validMenuNumber)
+            {
+                Console.Write("\nEnter menu item number: ");
+                if (int.TryParse(Console.ReadLine(),out itemNumber))
+                {
+                    validMenuNumber = true;
+                }
+            }
             MenuItem itemToAdd = new MenuItem(itemName, description, ingredients, price, itemNumber);
             _repo.AddMenuItem(itemToAdd);
         }
@@ -85,28 +86,42 @@ namespace MenuConsole
         public void DeleteItem()
         {
             Console.Clear();
-            Console.WriteLine("Enter name of item you wish to remove: ");
+            Console.Write("Enter name of item you wish to remove: ");
             string name = Console.ReadLine();
             MenuItem itemToRemove = _repo.GetItemByName(name);
-            _repo.DeleteMenuItem(itemToRemove);
+            if (itemToRemove == null)
+            {
+                Console.WriteLine("No menu item with that name found.");
+                GoBackToMain();
+            }
+            else
+            {
+                _repo.DeleteMenuItem(itemToRemove);
+            }
         }
 
         public void EditItem()
         {
             Console.Clear();
-
             int counter = 1;
             int selectedNumber = -1;
-
             while (selectedNumber < 1 || selectedNumber > _repo.GetMenuItems().Count)
-            {
-                Console.WriteLine($"Enter number to edit indicated item: ");
+            {                
                 foreach (MenuItem item in _repo.GetMenuItems())
                 {
                     Console.WriteLine($"{counter}. {item.Name}");
                     counter++;
                 }
-                int selection = int.Parse(Console.ReadLine());
+                bool validSelection = false;
+                int selection = -1;
+                while(!validSelection)
+                {
+                    Console.Write($"\nEnter number to edit indicated item: ");
+                    if (int.TryParse(Console.ReadLine(),out selection))
+                    {
+                        validSelection = true;
+                    }
+                }    
                 if (selection >= 1 && selection <= _repo.GetMenuItems().Count)
                 {
                     selectedNumber = selection;
@@ -117,10 +132,8 @@ namespace MenuConsole
                     Console.Clear();
                 }
             }
-
             MenuItem itemToEdit = _repo.GetMenuItems()[selectedNumber - 1];
             Console.Clear();
-
             Console.WriteLine($"What do you wish to edit: \n" +
                 $"1. Name\n" +
                 $"2. Description\n" +
@@ -128,7 +141,6 @@ namespace MenuConsole
                 $"4. Price\n" +
                 $"5. Menu item number"
                 );
-
             string propertyToEdit = Console.ReadLine();
             switch (propertyToEdit)
             {
@@ -147,14 +159,31 @@ namespace MenuConsole
                     itemToEdit.Ingredients = newIngredients;
                     break;
                 case "4":
-                    Console.WriteLine("Enter new price: ");
-                    decimal newPrice = decimal.Parse(Console.ReadLine());
-                    itemToEdit.Price = newPrice;
+                    bool validPrice = false;
+                    decimal price;
+                    while (!validPrice)
+                    {
+                        Console.Write("\nEnter new item price: ");
+                        if (decimal.TryParse(Console.ReadLine(), out price))
+                        {
+                            validPrice = true;
+                            itemToEdit.Price = price;
+                        }
+                    }
                     break;
                 case "5":
+                    bool validMenuNumber = false;
+                    int itemNumber;
+                    while (!validMenuNumber)
+                    {
+                        Console.Write("\nEnter menu item number: ");
+                        if (int.TryParse(Console.ReadLine(), out itemNumber))
+                        {
+                            validMenuNumber = true;
+                            itemToEdit.MealNumber = itemNumber; 
+                        }
+                    }
                     Console.WriteLine("Enter new menu item number: ");
-                    int newMenuNumber = int.Parse(Console.ReadLine());
-                    itemToEdit.MealNumber = newMenuNumber;
                     break;
                 default:
                     Console.WriteLine("Invalid selection");
@@ -167,7 +196,6 @@ namespace MenuConsole
             bool moreIngredients = true;
             List<string> ingredients = new List<string>();
             int counter = 1;
-
             while (moreIngredients)
             {                
                 Console.WriteLine($"\nEnter ingredient {counter} and press 'enter'. " +
@@ -186,7 +214,12 @@ namespace MenuConsole
             return ingredients;
         }
 
-        //Seed method to initialize MenuUI with items for testing purposes
+        public void GoBackToMain()
+        {
+            Console.WriteLine("Press any key to go back to main menu");
+            Console.ReadKey();
+        }
+
         public void Seed()
         {
             MenuItem pizza = new MenuItem("Pizza", "New York style thin crust pizza with pepperoni",
