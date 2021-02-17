@@ -39,6 +39,14 @@ namespace CompanyOutingTests
         {
             _repo.DisplayOutings();
         }
+
+        [TestMethod]
+        public void DisplayOutingsAndCostsByTypeTest()
+        {
+            _repo.DisplayOutingsAndCostByType(EventType.AmusementPark);
+            _repo.DisplayOutingsAndCostByType(EventType.Bowling);
+            _repo.DisplayOutingsAndCostByType(EventType.Golf);
+        }
         
         [TestMethod]
         public void CostOfAllOutingsTestShouldGetCorrectTotal()

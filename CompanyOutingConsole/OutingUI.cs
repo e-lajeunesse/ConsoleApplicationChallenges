@@ -22,6 +22,7 @@ namespace CompanyOutingConsole
                     "1. Display all outings.\n" +
                     "2. Add new outing.\n" +
                     "3. Display total cost of all outings\n" +
+                    "4. Display costs by event type\n" +
                     "0. Exit");
                 string userSelection = Console.ReadLine();
                 switch (userSelection)
@@ -41,6 +42,10 @@ namespace CompanyOutingConsole
                         break;
                     case "0":
                         keepRunning = false;
+                        break;
+                    case "4":
+                        //method to display costs by type
+                        DisplayCostsByType();
                         break;
                     default:
                         Console.Clear();
@@ -134,6 +139,35 @@ namespace CompanyOutingConsole
                 $"  All Outings Combined:   ${_repo.CostOfAllOutings,-12}\n");
             Console.WriteLine(goBackToMenu);
             Console.ReadKey();
+        }
+
+        public void DisplayCostsByType()
+        {
+            List<int> validEventTypeEntries = new List<int> { 1, 2, 3, 4 };
+            int eventType = -1;
+            EventType typeSelection;
+            while (!validEventTypeEntries.Contains(eventType))
+            {
+                Console.Clear();
+                Console.WriteLine("Enter event type to get costs: \n" +
+                    "1. Golf\n" +
+                    "2. Bowling\n" +
+                    "3. Amusement Park\n" +
+                    "4. Concert\n");                   
+                if (!int.TryParse(Console.ReadLine(), out eventType))
+                {
+                    Console.WriteLine("Invalid entry, press any key to continue.");
+                    Console.ReadKey();
+                }
+                else
+                {
+                    typeSelection = (EventType)eventType;
+                    Console.Clear();
+                    _repo.DisplayOutingsAndCostByType(typeSelection);
+                    Console.WriteLine("Press any key to coninue");
+                    Console.ReadKey();
+                }
+            }
         }
 
         public void Seed()

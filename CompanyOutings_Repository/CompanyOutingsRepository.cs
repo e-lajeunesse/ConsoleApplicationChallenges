@@ -38,6 +38,21 @@ namespace CompanyOutings_Repository
             }
         }
 
+        public void DisplayOutingsAndCostByType(EventType type)
+        {
+            Console.WriteLine("Event Type    Date of event    Cost Per Person    Total Cost\n");
+            foreach (Outing outing in _directory)
+            {
+                if (outing.Event == type)
+                {
+                    Console.WriteLine($"{outing.Event,-14}{outing.DateOfEvent.ToShortDateString(),-17}" +
+                        $"${outing.CostPerPerson,-18}${ outing.TotalCost}");
+                }
+            }
+            Console.WriteLine("--------------------------------------------------------------------");
+            Console.WriteLine($"                     Total for all {type} outings: ${GetCombinedCostByEventType(type)}\n\n");
+        }
+
         public decimal GetCombinedCostByEventType(EventType type)
         {
             decimal combinedCost = (from outing in _directory where outing.Event == type select outing.TotalCost).Sum();
