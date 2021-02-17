@@ -1,4 +1,4 @@
-#  Eric LaJeunesse - ConsoleApplicationChallenges
+#  Eric LaJeunesse - Console Application Challenges
 
 ## Challenges Completed
   * Challenge 1: Cafe  
