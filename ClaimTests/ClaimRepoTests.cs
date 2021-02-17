@@ -18,7 +18,6 @@ namespace ClaimTests
             claim1 = new Claim(1, ClaimType.Car, "car accident on HWY Y", 1400.00m,
                 new DateTime(2020, 12, 20), new DateTime(2020, 12, 27));
             _repo.AddClaim(claim1);
-
             claim2 = new Claim(2, ClaimType.Home, "fire in kitchen", 800.00m,
                 new DateTime(2020, 10, 29), new DateTime(2020, 12, 22));
             _repo.AddClaim(claim2);
@@ -60,7 +59,6 @@ namespace ClaimTests
             DateTime time1 = new DateTime(2020, 01, 01);
             DateTime time2 = new DateTime(2020, 01, 31);
             DateTime time3 = new DateTime(2020, 02, 01);
-
             Claim testClaim1 = new Claim();
             Claim testClaim2 = new Claim();
             testClaim1.DateOfIncident = time1;

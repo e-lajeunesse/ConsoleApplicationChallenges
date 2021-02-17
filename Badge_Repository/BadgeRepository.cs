@@ -30,6 +30,7 @@ namespace Badge_Repository
             _directory[badgeID].Add(door);
             return _directory[badgeID].Count == startingCount + 1;
         }
+
         public bool RemoveDoor(int badgeID, string door)
         {
             return _directory[badgeID].Remove(door);
@@ -66,7 +67,5 @@ namespace Badge_Repository
         {
             return _directory[badgeID].Count == 0? "none" : string.Join(", ", _directory[badgeID]);
         }
-
-
     }
 }

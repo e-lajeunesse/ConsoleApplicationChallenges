@@ -11,7 +11,6 @@ namespace CompanyOutingConsole
     {
         private readonly CompanyOutingsRepository _repo = new CompanyOutingsRepository();
         private readonly string goBackToMenu = "Press any key to go back to main menu.";
-
         public void RunUI()
         {
             bool keepRunning = true;
@@ -24,7 +23,6 @@ namespace CompanyOutingConsole
                     "2. Add new outing.\n" +
                     "3. Display total cost of all outings\n" +
                     "0. Exit");
-
                 string userSelection = Console.ReadLine();
                 switch (userSelection)
                 {
@@ -56,7 +54,6 @@ namespace CompanyOutingConsole
         public void AddNewOuting()
         {
             Outing outingToAdd = new Outing();
-
             List<int> validEventTypeEntries = new List<int> { 1, 2, 3, 4 };
             int eventType = -1;
             while(!validEventTypeEntries.Contains(eventType))
@@ -70,9 +67,13 @@ namespace CompanyOutingConsole
                 if (int.TryParse(Console.ReadLine(),out eventType))
                 {
                     outingToAdd.Event = (EventType)eventType;
-                }                
+                }
+                else
+                {
+                    Console.WriteLine("Invalid entry, press any key to continue.");
+                    Console.ReadKey();
+                }
             }
-
             int numberOfPeople = -1;
             while(!(numberOfPeople >= 0))
             {
@@ -80,13 +81,13 @@ namespace CompanyOutingConsole
                 if (!int.TryParse(Console.ReadLine(),out numberOfPeople))
                 {
                     numberOfPeople = -1;
+                    Console.WriteLine("Invalid entry");
                 }
                 else
                 {
                     outingToAdd.NumberOfPeople = numberOfPeople;
                 }
             }
-
             decimal totalCost = -1m;
             while(!(totalCost>= 0))
             {
@@ -100,7 +101,6 @@ namespace CompanyOutingConsole
                     outingToAdd.TotalCost = totalCost;
                 }
             }
-
             bool validEventDate = false;
             while (!validEventDate)
             {

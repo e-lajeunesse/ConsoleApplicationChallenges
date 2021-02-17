@@ -18,6 +18,7 @@ namespace Claim_Repository
             _directory.Add(claim);
             return _directory.Count == startingCount + 1;
         }
+
         public List<Claim> GetClaims()
         {
             return _directory;
@@ -28,7 +29,6 @@ namespace Claim_Repository
             Console.WriteLine("Claim ID      Type            Description                        Amount" +
                 "       DateOfIncident" +
                 "    DateOfClaim    IsValid");
-
             foreach(Claim claim in _directory)
             {
                 Console.WriteLine($"{claim.ClaimID,-13} {claim.ClaimType,-15} {claim.Description,-35}" +

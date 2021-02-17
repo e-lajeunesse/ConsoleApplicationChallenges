@@ -13,7 +13,6 @@ namespace BadgeConsole
         public void RunUI()
         {
             bool keepRunning = true;
-
             while(keepRunning)
             {
                 Console.Clear();
@@ -22,7 +21,6 @@ namespace BadgeConsole
                     "2.Update a badge\n" +
                     "3.List all badges\n" +
                     "0.Exit\n");
-
                 string selection = Console.ReadLine();
                 switch (selection)
                 {
@@ -53,9 +51,17 @@ namespace BadgeConsole
         {
             Console.Clear();
             Badge badgeToAdd = new Badge();
-            Console.Write("Enter Badge ID: ");
-            badgeToAdd.BadgeID = int.Parse(Console.ReadLine());
-
+            bool validID = false;
+            int id;
+            while (!validID)
+            {
+                Console.Write("Enter Badge ID: ");
+                if (int.TryParse(Console.ReadLine(),out id))
+                {
+                    badgeToAdd.BadgeID = id;
+                    validID = true;
+                }
+            }
             bool keepAddingDoors = true;
             while(keepAddingDoors)
             {
@@ -84,13 +90,24 @@ namespace BadgeConsole
             bool validBadgeID = false;
             while(!validBadgeID)
             {
-                Console.WriteLine("Enter Badge ID number to update, or type 'esc' to go back to main menu.");
-                string idEntry = Console.ReadLine().ToUpper();
-                if (idEntry == "ESC")
+                bool validBadgeIDEntry = false;
+                while (!validBadgeIDEntry)
                 {
-                    return;
-                }
-                id = int.Parse(idEntry);
+                    Console.WriteLine("Enter Badge ID number to update, or type 'esc' to go back to main menu.");
+                    string idEntry = Console.ReadLine().ToUpper();
+                    if (idEntry == "ESC")
+                    {
+                        return;
+                    }
+                    if (int.TryParse(idEntry,out id))
+                    {
+                        validBadgeIDEntry = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid entry");
+                    }
+                }                
                 if (_repo.GetBadges.ContainsKey(id))
                 {
                     validBadgeID = true;
@@ -100,17 +117,16 @@ namespace BadgeConsole
                     Console.WriteLine("Unable to find badge with that ID number.\n");
                 }
             }
-            Console.Clear();
-            Console.WriteLine($"Badge {id} has access to doors {_repo.ListOfDoorsString(id)}\n");
-            Console.WriteLine("What would you like to do?\n" +
-                "   1. Add access to a door\n" +
-                "   2. Remove access to a door\n" +
-                "   3. Remove access to all doors\n");
-
             bool validSelection = false;
-            string updateSelection = Console.ReadLine();
             while(!validSelection)
             {
+                Console.Clear();
+                Console.WriteLine($"Badge {id} has access to doors {_repo.ListOfDoorsString(id)}\n");
+                Console.WriteLine("What would you like to do?\n" +
+                    "   1. Add access to a door\n" +
+                    "   2. Remove access to a door\n" +
+                    "   3. Remove access to all doors\n");
+                string updateSelection = Console.ReadLine();
                 switch (updateSelection)
                 {
                     case "1":
@@ -131,10 +147,20 @@ namespace BadgeConsole
                             if (_repo.GetBadges[id].Contains(doorToRemove))
                             {
                                 _repo.RemoveDoor(id, doorToRemove);
+                                Console.WriteLine($"\nAccess to door {doorToRemove} removed. " +
+                                    $"Press any key to go back to main menu.");
                                 validDoor = true;
                             }
-                            Console.WriteLine($"\nAccess to door {doorToRemove} removed. " +
-                                $"Press any key to go back to main menu.");
+                            else
+                            {
+                                Console.WriteLine($"\nBadge {id} doesn't have access to door {doorToRemove}.\n" +
+                                    $"Type 'esc' to go back to main menu, or press any other key to enter a different door.");
+                                string userChoice = Console.ReadLine().ToUpper();
+                                if (userChoice == "ESC")
+                                {
+                                    validDoor = true;
+                                }
+                            }
                         }
                         Console.ReadKey();
                         validSelection = true;
@@ -149,12 +175,8 @@ namespace BadgeConsole
                     default:
                         Console.WriteLine("Invalid entry");
                         break;
-                }
-                
+                }                
             }
-
-
-
         }
 
         public void Seed()

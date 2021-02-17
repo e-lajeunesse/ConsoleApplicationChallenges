@@ -22,7 +22,5 @@ namespace CompanyOutings_Repository
             Event = type;
             DateOfEvent = date;
         }
-
-
     }
 }

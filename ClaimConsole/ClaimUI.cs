@@ -21,7 +21,6 @@ namespace ClaimConsole
                     "2. Take care of next claim\n" +
                     "3. Enter a new claim\n" +
                     "0. Exit");
-
                 string selection = Console.ReadLine();
                 switch (selection)
                 {
@@ -50,14 +49,14 @@ namespace ClaimConsole
         {
             Claim nextClaim = _repo.GetClaims()[0];
             Console.Clear();
-            Console.WriteLine($"ClaimID: {nextClaim.ClaimID}\n" +
+            Console.WriteLine($"Here are the details for the next claim to be handled:\n" +
+                $"ClaimID: {nextClaim.ClaimID}\n" +
                 $"Type: {nextClaim.ClaimType}\n" +
                 $"Description: {nextClaim.Description}\n" +
                 $"Amount: ${nextClaim.ClaimAmount}\n" +
                 $"Date of Incident: {nextClaim.DateOfIncident.ToShortDateString()}\n" +
                 $"Date of Claim: {nextClaim.DateOfClaim.ToShortDateString()}\n" +
-                $"IsValid: {nextClaim.IsValid}\n");
-            
+                $"IsValid: {nextClaim.IsValid}\n");            
             bool validSelection = false;
             while(!validSelection)
             {
@@ -85,20 +84,39 @@ namespace ClaimConsole
             Claim claim = new Claim();
             bool validIncidentDate = false;
             bool validClaimDate = false;
-
-            Console.Write("Enter Claim ID: ");
-            claim.ClaimID = int.Parse(Console.ReadLine());
-
-            Console.Write($"\nSelect Claim Type: Enter 1 for {ClaimType.Car}, 2 for {ClaimType.Home}, " +
-                $"3 for {ClaimType.Theft}: " );
-            int claimTypeSelection = int.Parse(Console.ReadLine());
-            claim.ClaimType = (ClaimType)claimTypeSelection;
-
+            bool validID = false;
+            int id;
+            while(!validID)
+            {
+                Console.Write("Enter Claim ID: ");
+                if (int.TryParse(Console.ReadLine(),out id))
+                {
+                    claim.ClaimID = id;
+                    validID = true;
+                }
+            }
+            List<int> validTypes = new List<int> { 1, 2, 3 };
+            int typeSelection = -1;
+            while (!validTypes.Contains(typeSelection))
+            {
+                Console.Write($"\nSelect Claim Type: Enter 1 for {ClaimType.Car}, 2 for {ClaimType.Home}, " +
+                    $"3 for {ClaimType.Theft}: " );
+                int.TryParse(Console.ReadLine(), out typeSelection);
+            }
+            claim.ClaimType = (ClaimType)typeSelection;
             Console.Write("\nEnter description: ");
             claim.Description = Console.ReadLine();
-
-            Console.Write("\nEnter claim amount: ");
-            claim.ClaimAmount = decimal.Parse(Console.ReadLine());
+            bool validAmount = false;
+            decimal amount;
+            while (!validAmount)
+            {
+                Console.Write("\nEnter claim amount: ");
+                if (decimal.TryParse(Console.ReadLine(),out amount))
+                {
+                    claim.ClaimAmount = amount;
+                    validAmount = true;
+                }
+            }            
             
             while(!validIncidentDate)
             {
@@ -123,7 +141,7 @@ namespace ClaimConsole
                 DateTime dateOfClaim;
                 if (DateTime.TryParse(dateString, out dateOfClaim))
                 {
-                    claim.DateOfIncident = dateOfClaim;
+                    claim.DateOfClaim = dateOfClaim;
                     validClaimDate = true;
                 }
                 else
@@ -131,7 +149,6 @@ namespace ClaimConsole
                     Console.WriteLine("Invalid format for date");
                 }
             }
-
             Console.WriteLine($"\nBased on the entered dates this claim is: " +
                 $"{(claim.IsValid? "Valid" : "Not Valid")}");
             Console.WriteLine($"\n{(_repo.AddClaim(claim)? "Claim successfully added" : "Unable to add claim")}");            
@@ -142,7 +159,6 @@ namespace ClaimConsole
             Claim claim1 = new Claim(1, ClaimType.Car, "car accident on HWY Y", 1400m,
                 new DateTime(2020, 12, 20), new DateTime(2020, 12, 27));
             _repo.AddClaim(claim1);
-
             Claim claim2 = new Claim(2, ClaimType.Home, "fire in kitchen", 800m,
                 new DateTime(2020, 10, 29), new DateTime(2020, 12, 22));
             _repo.AddClaim(claim2);

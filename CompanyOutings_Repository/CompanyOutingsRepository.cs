@@ -25,6 +25,7 @@ namespace CompanyOutings_Repository
             _directory.Add(outing);
             return _directory.Count == startingCount + 1;
         }
+
         public void DisplayOutings()
         {
             foreach(Outing outing in _directory)
@@ -41,8 +42,6 @@ namespace CompanyOutings_Repository
         {
             decimal combinedCost = (from outing in _directory where outing.Event == type select outing.TotalCost).Sum();
             return combinedCost;
-        }
-
-        
+        }        
     }
 }

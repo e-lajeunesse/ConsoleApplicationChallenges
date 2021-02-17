@@ -9,13 +9,17 @@ namespace Menu_Repository
     public class MenuItem
     {
         public string Name { get; set; }
+
         public string Description { get; set; }
+
         public List<string> Ingredients { get; set; }
 
         public decimal Price { get; set; }
+
         public int MealNumber { get; set; }
 
         public MenuItem() { }
+
         public MenuItem(string name, string description, List<string> ingredients, decimal price, int mealNumber)
         {
             Name = name;

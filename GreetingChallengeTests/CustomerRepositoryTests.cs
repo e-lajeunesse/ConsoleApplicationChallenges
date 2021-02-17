@@ -21,7 +21,6 @@ namespace GreetingChallengeTests
             customer2 = new Customer("Jane", "Smith", 2,CustomerType.Past);
             customer3 = new Customer("Dave", "Alvarez",3, CustomerType.Potential);
             customer4 = new Customer("Bob", "Wilson",4, CustomerType.Current);
-
             _repo = new CustomerRepository();
             _repo.AddCustomer(customer1);
             _repo.AddCustomer(customer2);
@@ -35,6 +34,7 @@ namespace GreetingChallengeTests
             //order should be customer3,customer2,customer1,customer4
             _repo.DisplaySortedCustomerList();
         }
+
         [TestMethod]
         public void AddCustomerTest()
         {

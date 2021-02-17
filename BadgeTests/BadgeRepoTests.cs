@@ -11,6 +11,7 @@ namespace BadgeTests
         private Badge badge1;
         private Badge badge2;
         private BadgeRepository _repo;
+        
         [TestInitialize]
         public void Seed()
         {

@@ -32,6 +32,7 @@ namespace GreetingChallengeRepository
         {
             return _directory.Remove(customer);
         }
+
         public Customer GetGustomerByID(int id)
         {
             foreach(Customer customer in _directory)

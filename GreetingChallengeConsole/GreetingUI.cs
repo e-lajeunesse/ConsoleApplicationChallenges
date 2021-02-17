@@ -81,6 +81,7 @@ namespace GreetingChallengeConsole
             Console.WriteLine("\nCustomer successfully added.");
             GoBackToMain();
         }
+
         public void RemoveCustomer()
         {
             Console.Clear();
@@ -93,6 +94,7 @@ namespace GreetingChallengeConsole
             Console.WriteLine("\nCustomer successfully removed");
             GoBackToMain();
         }
+
         public void UpdateCustomer()
         {
             Console.Clear();
@@ -101,7 +103,6 @@ namespace GreetingChallengeConsole
             {
                 return;
             }
-
             bool keepUpdating = true;
             while (keepUpdating)
             {
@@ -111,7 +112,6 @@ namespace GreetingChallengeConsole
                     "2. Last name\n" +
                     "3. ID\n" +
                     "4. Customer type\n");
-
                 string updateSelection = Console.ReadLine();
                 switch (updateSelection)
                 {
@@ -149,7 +149,7 @@ namespace GreetingChallengeConsole
                                 validID = true;
                             }
                         }
-                        Console.WriteLine("Id updated. Do you want to continue updating this customer?");
+                        Console.WriteLine("ID updated. Do you want to continue updating this customer?");
                         keepGoing = null;
                         while (keepGoing == null)
                         {

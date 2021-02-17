@@ -10,7 +10,6 @@ namespace Badge_Repository
     {
         public int BadgeID { get; set; }
         public List<string> Doors { get; } = new List<string>();
-
         public Badge() { }
         public Badge(int id,List<string> doors)
         {
