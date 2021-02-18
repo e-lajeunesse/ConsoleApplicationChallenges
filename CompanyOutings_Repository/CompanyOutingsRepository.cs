@@ -49,8 +49,9 @@ namespace CompanyOutings_Repository
                         $"${outing.CostPerPerson,-18}${ outing.TotalCost}");
                 }
             }
+            string total = $"Total for all {type} outings:";
             Console.WriteLine("--------------------------------------------------------------------");
-            Console.WriteLine($"                     Total for all {type} outings: ${GetCombinedCostByEventType(type)}\n\n");
+            Console.WriteLine($"{total,48}  ${GetCombinedCostByEventType(type)}\n\n");
         }
 
         public decimal GetCombinedCostByEventType(EventType type)

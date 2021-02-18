@@ -30,13 +30,13 @@ namespace GreetingChallengeConsole
                         _repo.DisplaySortedCustomerList();
                         GoBackToMain();
                         break;
-                    case "2":                        
+                    case "2":
                         AddNewCustomer();
                         break;
                     case "3":
                         RemoveCustomer();
                         break;
-                    case "4":                        
+                    case "4":
                         UpdateCustomer();
                         break;
                     case "0":
@@ -67,13 +67,13 @@ namespace GreetingChallengeConsole
             }
             List<int> validTypeEntries = new List<int> { 1, 2, 3 };
             int typeEntry = -1;
+            Console.WriteLine("\nEnter customer type: \n" +
+                "1. Current\n" +
+                "2. Past\n" +
+                "3. Potential");
             while (!validTypeEntries.Contains(typeEntry))
             {
-                Console.WriteLine("\nEnter customer type: \n" +
-                    "1. Current\n" +
-                    "2. Past\n" +
-                    "3. Potential");
-                typeEntry = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out typeEntry);
             }
             customerToAdd.Type = (CustomerType)typeEntry;
 
@@ -115,18 +115,18 @@ namespace GreetingChallengeConsole
                 string updateSelection = Console.ReadLine();
                 switch (updateSelection)
                 {
-                    case "1":                        
+                    case "1":
                         Console.Write("\nEnter first name: ");
                         customerToUpdate.FirstName = Console.ReadLine();
                         Console.WriteLine("First name updated, do you want to continue updating this customer?");
                         string keepGoing = null;
-                        while(keepGoing == null)
+                        while (keepGoing == null)
                         {
                             keepGoing = yesOrNo();
                         }
                         keepUpdating = (keepGoing == "yes" ? true : false);
                         break;
-                    case "2":                        
+                    case "2":
                         Console.Write("\nEnter last name: ");
                         customerToUpdate.LastName = Console.ReadLine();
                         Console.WriteLine("Last name updated. Do you want to continue updating this customer?");
@@ -137,7 +137,7 @@ namespace GreetingChallengeConsole
                         }
                         keepUpdating = (keepGoing == "yes" ? true : false);
                         break;
-                    case "3":                        
+                    case "3":
                         bool validID = false;
                         while (!validID)
                         {
@@ -157,7 +157,7 @@ namespace GreetingChallengeConsole
                         }
                         keepUpdating = (keepGoing == "yes" ? true : false);
                         break;
-                    case "4":                        
+                    case "4":
                         List<int> validTypeEntries = new List<int> { 1, 2, 3 };
                         int typeEntry = -1;
                         while (!validTypeEntries.Contains(typeEntry))
@@ -186,7 +186,7 @@ namespace GreetingChallengeConsole
 
         public Customer GetCustomer()
         {
-            
+
             Customer customerToGet = null;
             int id;
             bool validIDEntry = false;
@@ -206,11 +206,11 @@ namespace GreetingChallengeConsole
                 {
                     Console.Write("\nNo customer with that ID found, do you want to try another ID? ");
                     string keepGoing = null;
-                    while(keepGoing == null)
+                    while (keepGoing == null)
                     {
                         keepGoing = yesOrNo();
                     }
-                    validIDEntry = keepGoing == "yes"? false : true;                    
+                    validIDEntry = keepGoing == "yes" ? false : true;
                 }
             }
             return customerToGet;

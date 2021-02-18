@@ -65,6 +65,8 @@ namespace ClaimConsole
                 if (selection =="Y")
                 {
                     _repo.DeleteClaim(nextClaim);
+                    Console.WriteLine("Claim removed from queue, press any key to go back to main menu.");
+                    Console.ReadKey();
                     validSelection = true;
                 }
                 else if (selection == "N")
@@ -120,7 +122,7 @@ namespace ClaimConsole
             
             while(!validIncidentDate)
             {
-                Console.Write("\nEnter date of incident(yyyy-mm-dd): ");
+                Console.Write("\nEnter date of incident(mm-dd-yyyy): ");
                 string dateString = Console.ReadLine();
                 DateTime dateOfIncident;
                 if (DateTime.TryParse(dateString,out dateOfIncident))
@@ -136,7 +138,7 @@ namespace ClaimConsole
 
             while(!validClaimDate)
             {
-                Console.Write("\nEnter date of claim(yyyy-mm-dd): ");
+                Console.Write("\nEnter date of claim(mm-dd-yyyy): ");
                 string dateString = Console.ReadLine();
                 DateTime dateOfClaim;
                 if (DateTime.TryParse(dateString, out dateOfClaim))
@@ -151,7 +153,8 @@ namespace ClaimConsole
             }
             Console.WriteLine($"\nBased on the entered dates this claim is: " +
                 $"{(claim.IsValid? "Valid" : "Not Valid")}");
-            Console.WriteLine($"\n{(_repo.AddClaim(claim)? "Claim successfully added" : "Unable to add claim")}");            
+            Console.Write($"\n{(_repo.AddClaim(claim)? "Claim successfully added" : "Unable to add claim")}");
+            Console.WriteLine(" Press any key to go back to main menu.");
             Console.ReadKey();
         }
         public void Seed()

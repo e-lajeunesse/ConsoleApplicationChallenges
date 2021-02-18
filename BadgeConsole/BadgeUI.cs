@@ -61,6 +61,10 @@ namespace BadgeConsole
                     badgeToAdd.BadgeID = id;
                     validID = true;
                 }
+                else
+                {
+                    Console.WriteLine("Invalid entry, ID should be a number.");
+                }
             }
             bool keepAddingDoors = true;
             while(keepAddingDoors)
@@ -93,7 +97,7 @@ namespace BadgeConsole
                 bool validBadgeIDEntry = false;
                 while (!validBadgeIDEntry)
                 {
-                    Console.WriteLine("Enter Badge ID number to update, or type 'esc' to go back to main menu.");
+                    Console.Write("Enter Badge ID number to update, or type 'esc' to go back to main menu: ");
                     string idEntry = Console.ReadLine().ToUpper();
                     if (idEntry == "ESC")
                     {
@@ -105,7 +109,7 @@ namespace BadgeConsole
                     }
                     else
                     {
-                        Console.WriteLine("Invalid entry");
+                        Console.WriteLine("\nInvalid entry, the badge ID should be a number.\n");
                     }
                 }                
                 if (_repo.GetBadges.ContainsKey(id))
@@ -114,7 +118,7 @@ namespace BadgeConsole
                 }
                 else
                 {
-                    Console.WriteLine("Unable to find badge with that ID number.\n");
+                    Console.WriteLine("\nUnable to find badge with that ID number.\n");
                 }
             }
             bool validSelection = false;
@@ -153,8 +157,9 @@ namespace BadgeConsole
                             }
                             else
                             {
-                                Console.WriteLine($"\nBadge {id} doesn't have access to door {doorToRemove}.\n" +
-                                    $"Type 'esc' to go back to main menu, or press any other key to enter a different door.");
+                                Console.WriteLine($"\nBadge {id} doesn't have access to door {doorToRemove}, or the door " +
+                                    $"doesn't exist.\n" +
+                                    $"Type 'esc' to go back to main menu, or press the enter key to select a different door.");
                                 string userChoice = Console.ReadLine().ToUpper();
                                 if (userChoice == "ESC")
                                 {
