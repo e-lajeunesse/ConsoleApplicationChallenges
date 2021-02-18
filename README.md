@@ -23,7 +23,7 @@
  * CompanyOutings_Repository
  * CompanyOutingTests
  * CompanyOutingConsole
-#### Challenge 4 - Project Names
+#### Challenge 5 - Project Names
  * GreetingChallengeRepository
  * GreetingChallengeTests
  * GreetingChallengeConsole
